@@ -21,3 +21,20 @@ Third party code and libraries and their license:
 
 
 With `Green` you can write code with the peace of mind that what matter is saved and you can go back to it at any time (well, as long as it passes the tests).
+
+Building
+---
+
+This project uses cmake, in order to build, from the source:
+```
+mkdir build && cd build;
+cmake ..
+make
+```
+
+This will produce a `Green` executable that you can copy on your path.
+
+
+Green has been tested on Linux, BSD and WSL (in fact I should probably remove the `test.bat` thing, 3 years ago made more sense, but since WSL it's obsolete).
+
+At some point it partially worked on Haiku, but due to a file system corruption I've lost the fallback code for the filesystem watcher, sorry.
