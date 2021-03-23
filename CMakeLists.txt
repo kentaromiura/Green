@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.9)
 project(Green)
 include(FetchContent)
+set(CMAKE_CXX_STANDARD 17)
 
 FetchContent_Declare(json
   GIT_REPOSITORY https://github.com/nlohmann/json.git
