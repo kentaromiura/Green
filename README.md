@@ -35,6 +35,6 @@ make
 This will produce a `Green` executable that you can copy on your path.
 
 
-Green has been tested on Linux, BSD and WSL (in fact I should probably remove the `test.bat` thing, 3 years ago made more sense, but since WSL it's obsolete).
+Green has been tested on Linux, BSD, OSX and WSL (in fact I should probably remove the `test.bat` thing, 3 years ago made more sense, but since WSL it's obsolete).
 
 At some point it partially worked on Haiku, but due to a file system corruption I've lost the fallback code for the filesystem watcher, sorry.
