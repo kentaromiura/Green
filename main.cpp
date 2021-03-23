@@ -2,7 +2,8 @@
 
 #include <stdio.h>  /* defines FILENAME_MAX */
 #include <ctime>
-
+#include <dirent.h>
+#include <errno.h>
 
 #ifdef WINDOWS
 #include <direct.h>
@@ -29,6 +30,20 @@ inline char pathSeparator() { return __PATH_SEPARATOR; }
 
 bool FileExists(const std::string &Filename) {
     return access(Filename.c_str(), 0) == 0;
+}
+
+bool DirExists(const std::string &Dirname) {
+    DIR* dir = opendir(Dirname.c_str());
+    if (dir) {
+        closedir(dir);
+        return true;
+    } else if (ENOENT == errno) {
+        return false;
+    } else {
+        std::cout << "Permission to open " + Dirname + " denied.";
+        exit(-1);
+    }
+    return false;
 }
 
 typedef struct {
@@ -155,10 +170,16 @@ void commitAll(std::string c) {
 int main(int argc, char **argv) {
 
     char currentWorkingDir[FILENAME_MAX];
-
     if (!GetCurrentDir(currentWorkingDir, sizeof(currentWorkingDir))) {
         return errno;
     }
+
+    auto gitPath = std::string(currentWorkingDir) + pathSeparator() + ".git";
+    if(!DirExists(gitPath)) {
+        std::cout << "This is not a git repo.";
+        return -1;
+    }
+    
     auto testExecutable = IS_WINDOWS? "test.bat" : "test";
 
     if (!FileExists(testExecutable)) {
